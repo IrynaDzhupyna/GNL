@@ -6,7 +6,7 @@
 /*   By: irdzhupy <irdzhupy@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 10:53:13 by irdzhupy          #+#    #+#             */
-/*   Updated: 2026/02/06 11:46:06 by irdzhupy         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:03:01 by irdzhupy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	j = 0;
 	while (s2[j])
 	{
-		new[i+j] = s2[j];
+		new[i + j] = s2[j];
 		j++;
 	}
-	new[i+j] = '\0';
+	new[i + j] = '\0';
 	return (new);
 }
 
@@ -87,7 +87,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		copy = s_len - start;
 	else
 		copy = len;
-	//check if /n there 
 	new = malloc(copy + 1);
 	if (!new)
 		return (NULL);

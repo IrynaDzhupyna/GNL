@@ -6,52 +6,46 @@
 /*   By: irdzhupy <irdzhupy@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 10:43:11 by irdzhupy          #+#    #+#             */
-/*   Updated: 2026/02/06 15:08:52 by irdzhupy         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:24:05 by irdzhupy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*char	*buff_allocate_check(char *p, size_t size)
-{
-	p = malloc(size);
-	if (!p)
-		return (NULL);
-	return (p);
-}*/
-
 char	*fill_the_stash(int fd, char *stash)
 {
 	char	*buff;
+
+	if (ft_strchr(stash, '\n'))
+		return (stash);
+	buff = malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (NULL);
+	return (read_and_join(fd, stash, buff));
+}
+
+char	*read_and_join(int fd, char *stash, char *buff)
+{
 	char	*found;
 	char	*temp;
 	ssize_t	bytes_read;
 
 	found = ft_strchr(stash, '\n');
-	if (!found)
+	bytes_read = 1;
+	while (bytes_read > 0 && !found)
 	{
-		buff = malloc(BUFFER_SIZE + 1);
-		if (!buff)
-			return ( NULL);
-		bytes_read = 1;
-		while (bytes_read > 0 && !found)
-		{
-			bytes_read = read(fd, buff, BUFFER_SIZE);
-			if (bytes_read < 0)
-				return (free(buff), free(stash), NULL);
-			buff[bytes_read] = '\0';
-			temp = ft_strjoin(stash, buff);
-			if (!temp)
-				return (free(buff), free(stash), NULL);
-			free(stash);
-			stash = temp;
-			found = ft_strchr(stash, '\n');
-		}
-		//with or without
-		if (bytes_read == 0)
-			return (free(buff), stash);
-		free(buff);
+		bytes_read = read(fd, buff, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (free(buff), free(stash), NULL);
+		buff[bytes_read] = '\0';
+		temp = ft_strjoin(stash, buff);
+		if (!temp)
+			return (free(buff), free(stash), NULL);
+		free(stash);
+		stash = temp;
+		found = ft_strchr(stash, '\n');
 	}
+	free(buff);
 	return (stash);
 }
 
@@ -105,12 +99,6 @@ char	*get_next_line(int fd)
 		stash[0] = '\0';
 	}
 	stash = fill_the_stash(fd, stash);
-/*	if (!stash)
-	{
-		free(stash);
-		stash = NULL;
-		return (NULL);
-	}*/
 	line = find_the_line(stash);
 	if (!line && stash && stash[0] != '\0')
 	{

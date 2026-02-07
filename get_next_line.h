@@ -6,7 +6,7 @@
 /*   By: irdzhupy <irdzhupy@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:15:41 by irdzhupy          #+#    #+#             */
-/*   Updated: 2026/01/29 12:40:54 by irdzhupy         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:26:37 by irdzhupy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 char	*get_next_line(int fd);
 char	*fill_the_stash(int fd, char *stash);
+char	*read_and_join(int fd, char *stash, char *buff);
 char	*find_the_line(char *stash);
 char	*check_free_stash(char *stash);
 char	*ft_strchr(const char *s, int c);
